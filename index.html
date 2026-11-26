@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="MZプレイヤー">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="theme-color" content="#000000">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="style.css">
+<title>MZゲームプレイヤー</title>
+</head>
+<body>
+<main>
+  <h1>MZゲームプレイヤー</h1>
+  <p class="sub">RPGツクールMZのゲームZIPを、この端末の中だけに取り込んで遊びます。</p>
+
+  <section id="ios-warn" class="card warn" hidden>
+    <b>先に「ホーム画面に追加」してください</b>
+    <p>Safariの共有ボタン(□↑)→「ホーム画面に追加」。<br>
+    そのあと<b>ホーム画面のアイコンから開き直して</b>、そこでZIPを取り込みます。
+    (Safariとホーム画面アプリは保存領域が別々なので、Safariで取り込むと消えたように見えます)</p>
+    <button id="ios-warn-close" class="btn small ghost">Safariのまま続ける</button>
+  </section>
+
+  <section id="setup" class="card" hidden>
+    <h2>① ゲームZIPを取り込む</h2>
+    <p>「ファイル」アプリにあるゲームのZIPを選びます。端末内で展開するので、通信もアップロードもしません。</p>
+    <label class="btn primary">ZIPを選ぶ
+      <input id="zip-input" type="file" accept=".zip,application/zip,application/x-zip-compressed">
+    </label>
+    <div id="progress" hidden>
+      <div class="bar"><div id="bar-fill"></div></div>
+      <div id="prog-text" class="small"></div>
+      <div id="prog-file" class="small dim"></div>
+      <p class="small">処理が終わるまで、この画面を開いたままにしてください。</p>
+    </div>
+  </section>
+
+  <section id="ready" class="card" hidden>
+    <h2 id="game-title">準備完了</h2>
+    <div id="game-info" class="small dim"></div>
+    <button id="play" class="btn primary big">▶ ゲームを始める</button>
+    <p class="small">横向きで遊ぶと大きく表示されます。画面左下の「☰ 戻る」はメニュー/キャンセルです。</p>
+    <label class="check"><input id="cfg-btn" type="checkbox" checked> 画面に「☰ 戻る」ボタンを表示</label>
+  </section>
+
+  <section id="saves" class="card" hidden>
+    <h2>セーブデータ</h2>
+    <p class="small">ゲーム内のセーブはこの端末のブラウザ内に保存されます。機種変更や念のための控えに書き出せます。
+    PC版の <code>.rmmzsave</code> ファイル(またはそれを含むZIP)も取り込めます。</p>
+    <div class="row">
+      <label class="btn">取り込む
+        <input id="save-import" type="file" multiple>
+      </label>
+      <button id="save-export" class="btn">書き出す</button>
+    </div>
+    <div id="save-msg" class="small"></div>
+  </section>
+
+  <section id="manage" class="card" hidden>
+    <h2>管理</h2>
+    <div id="storage-info" class="small dim"></div>
+    <div class="row">
+      <button id="reinstall" class="btn small">別のZIPで入れ直す</button>
+      <button id="wipe" class="btn small danger">ゲームデータを削除</button>
+    </div>
+    <p class="small dim">削除してもセーブデータは残ります。</p>
+  </section>
+
+  <section id="msg" class="card" hidden></section>
+  <p class="foot small dim">ゲームのデータはこのページの配信元には保存されません。取り込んだ端末の中だけで動きます。</p>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pako/1.0.11/pako.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/localforage/1.7.3/localforage.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
